@@ -5,7 +5,7 @@
 ### Dont forget to change the path to your project in the Makefile!
 ####################################################################
 
-execmd="./fillit"
+execmd="./copyed_project/fillit"
 
 expect=tmp_expected_results
 your=tmp_your_result

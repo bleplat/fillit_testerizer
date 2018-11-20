@@ -6,7 +6,7 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/20 16:36:32 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/20 16:52:02 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,8 @@ import:
 	@printf "\e[35mcopying files..\n"
 	@mkdir -p $(CP_DIR)
 	cp -rf $(TESTED_DIR)/* $(CP_DIR)/
+	cd $(CP_DIR) && make fclean
+	cd $(CP_DIR) && make
 	#ised -E "s/^# define BUFF_SIZE .*/\/\*# define BUFF_SIZE 0\*\//g" $(CP_DIR)/get_next_line.h > swp && mv swp $(CP_DIR)/get_next_line.h
 
 $(GNL_DIR)/libft.a:
@@ -71,9 +73,9 @@ $(NAME)_leaks: main_leaks.c
 ###########################
 
 %.o: %.c
-	@printf "\e33mno rule to make $@!\n"
+	@printf "\e33mnothing in rule to make $@!\n"
 
-$(NAME): $(TESTS_EXE)
+$(NAME):
 	@printf "\e[34m$(NAME) seems done\n"
 
 clean:
