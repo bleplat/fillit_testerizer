@@ -109,6 +109,7 @@ onetest "testfiles/double_piece"
 onetest "testfiles/place_order1"
 onetest "testfiles/place_order2"
 onetest "testfiles/place_order3"
+onetest "testfiles/place_order4"
 
 # Subject sample tests
 onetest "testfiles/sample1"
@@ -116,14 +117,15 @@ onetest "testfiles/sample2"
 onetest "testfiles/sample3"
 
 # Totaly wrong files
-onetest "testfiles/empty"
-onetest "testfiles/nl"
 onetest "testfiles/error"
 onetest "testfiles/error_nonl"
 
 # Trap files
 onetest "testfiles/obvious2_nonl"
 onetest "testfiles/obvious2_inline"
+onetest "testfiles/lorem_ipsum"
+onetest "testfiles/empty"
+onetest "testfiles/nl"
 
 
 printf $color_def
