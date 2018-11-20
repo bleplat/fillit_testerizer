@@ -6,7 +6,7 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/20 16:15:03 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/20 16:36:32 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,10 +27,15 @@ LDFLAGS = -L libft -lft
 all: import $(NAME)
 	@printf "\e[36mReady to run 'sh fillit_testerizer.sh'...\e[31m\n\n"
 
-run: all
-	./runtests.sh run
 
-### Tested Project Import ###
+
+
+###################################
+###    Tested Project Import    ###
+###################################
+
+run:
+	./runtests.sh run
 
 norminette:
 	@printf "\e[36mrunning norminette...\e[31m\n"
@@ -45,9 +50,6 @@ import:
 
 $(GNL_DIR)/libft.a:
 	cd $(GNL_DIR)/libft && make 1> /dev/null
-
-### Main tests ###
-
 
 
 

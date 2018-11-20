@@ -50,9 +50,8 @@ onediff() { # expected, your, title
 onetest() { # $1 -> file_name
 	printf $color_def
 	printf "testing $1...\n"
-	cat $1 | awk 1 > $expect
 	$execmd $1 &> $your
-	onediff $expect $your "TEST: $1";
+	onediff "$1.expected" $your "TEST: $1"
 	printf "\n\n"
 }
 
@@ -81,6 +80,9 @@ testleaks() {
 ###              TESTS                ###
 #########################################
 
+onetest "testfiles/sample1"
+onetest "testfiles/sample2"
+onetest "testfiles/sample3"
 
 
 
