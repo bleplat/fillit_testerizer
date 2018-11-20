@@ -6,7 +6,7 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/20 16:52:02 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/20 18:57:12 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,14 +58,16 @@ $(GNL_DIR)/libft.a:
 ###############################
 ###    TESTS EXECUTABLES    ###
 ###############################
-TESTS_EXE = $(NAME)_leaks
+TESTS_EXE = $(NAME)_colors
 
 main.o: main.c
 	gcc $(CFLAGS) -o $@ -c main.c
 
+$(NAME)_colors: colorc.c
+	gcc $(CFLAGS) -o $@ $^
+
 $(NAME)_leaks: main_leaks.c
 	gcc $(CFLAGS) -I $(INCLUDES) -o $@ $^ $(LDFLAGS)
-
 
 
 ###########################
@@ -75,7 +77,7 @@ $(NAME)_leaks: main_leaks.c
 %.o: %.c
 	@printf "\e33mnothing in rule to make $@!\n"
 
-$(NAME):
+$(NAME): $(TESTS_EXE)
 	@printf "\e[34m$(NAME) seems done\n"
 
 clean:
