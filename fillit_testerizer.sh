@@ -95,7 +95,7 @@ onetest "testfiles/error_nonl"
 onetest "testfiles/obvious1"
 onetest "testfiles/obvious2"
 onetest "testfiles/obvious3"
-
+onetest "testfiles/obvious4"
 
 printf $color_def
 printf "ALL TESTS DONE!\n"
