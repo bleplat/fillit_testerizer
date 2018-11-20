@@ -91,6 +91,10 @@ onetest "testfiles/nl"
 onetest "testfiles/error"
 onetest "testfiles/error_nonl"
 
+# Obvious tests
+onetest "testfiles/obvious1"
+onetest "testfiles/obvious2"
+onetest "testfiles/obvious3"
 
 
 printf $color_def
