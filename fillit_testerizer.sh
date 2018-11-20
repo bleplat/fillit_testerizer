@@ -88,6 +88,23 @@ onetest "testfiles/obvious4"
 onetest "testfiles/obvious5"
 onetest "testfiles/obvious6"
 
+# Obvious bad file
+onetest "testfiles/bad1"
+onetest "testfiles/bad2"
+onetest "testfiles/bad3"
+onetest "testfiles/bad4"
+onetest "testfiles/bad5"
+onetest "testfiles/bad6"
+onetest "testfiles/bad7"
+onetest "testfiles/bad8"
+onetest "testfiles/bad9"
+onetest "testfiles/bad10"
+onetest "testfiles/bad11"
+onetest "testfiles/bad12"
+onetest "testfiles/bad13"
+onetest "testfiles/bad14"
+onetest "testfiles/double_piece"
+
 # Placement order
 onetest "testfiles/place_order1"
 onetest "testfiles/place_order2"
@@ -107,7 +124,6 @@ onetest "testfiles/error_nonl"
 # Trap files
 onetest "testfiles/obvious2_nonl"
 onetest "testfiles/obvious2_inline"
-onetest "testfiles/double_piece"
 
 
 printf $color_def
