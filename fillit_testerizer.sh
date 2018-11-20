@@ -85,8 +85,9 @@ onetest "testfiles/sample1"
 onetest "testfiles/sample2"
 onetest "testfiles/sample3"
 
-# Special tests
+# Totaly wrong files
 onetest "testfiles/empty"
+onetest "testfiles/nl"
 onetest "testfiles/error"
 onetest "testfiles/error_nonl"
 
