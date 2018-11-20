@@ -116,17 +116,16 @@ onetest "testfiles/sample1"
 onetest "testfiles/sample2"
 onetest "testfiles/sample3"
 
-# Totaly wrong files
+# Special bad files
 onetest "testfiles/error"
 onetest "testfiles/error_nonl"
-
-# Trap files
 onetest "testfiles/obvious2_nonl"
 onetest "testfiles/obvious2_inline"
 onetest "testfiles/lorem_ipsum"
 onetest "testfiles/empty"
 onetest "testfiles/nl"
-
+onetest "testfiles/dot_nonl"
+onetest "testfiles/big_bad"
 
 printf $color_def
 printf "ALL TESTS DONE!\n"
