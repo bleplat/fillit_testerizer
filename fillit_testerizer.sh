@@ -80,10 +80,15 @@ testleaks() {
 ###              TESTS                ###
 #########################################
 
+# Subject sample tests
 onetest "testfiles/sample1"
 onetest "testfiles/sample2"
 onetest "testfiles/sample3"
 
+# Special tests
+onetest "testfiles/empty"
+onetest "testfiles/error"
+onetest "testfiles/error_nonl"
 
 
 
