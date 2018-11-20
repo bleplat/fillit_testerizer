@@ -80,6 +80,19 @@ testleaks() {
 ###              TESTS                ###
 #########################################
 
+# Obvious tests
+onetest "testfiles/obvious1"
+onetest "testfiles/obvious2"
+onetest "testfiles/obvious3"
+onetest "testfiles/obvious4"
+onetest "testfiles/obvious5"
+onetest "testfiles/obvious6"
+
+# Placement order
+onetest "testfiles/place_order1"
+onetest "testfiles/place_order2"
+onetest "testfiles/place_order3"
+
 # Subject sample tests
 onetest "testfiles/sample1"
 onetest "testfiles/sample2"
@@ -96,13 +109,6 @@ onetest "testfiles/obvious2_nonl"
 onetest "testfiles/obvious2_inline"
 onetest "testfiles/double_piece"
 
-# Obvious tests
-onetest "testfiles/obvious1"
-onetest "testfiles/obvious2"
-onetest "testfiles/obvious3"
-onetest "testfiles/obvious4"
-onetest "testfiles/obvious5"
-onetest "testfiles/obvious6"
 
 printf $color_def
 printf "ALL TESTS DONE!\n"
