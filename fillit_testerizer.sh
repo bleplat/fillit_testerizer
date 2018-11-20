@@ -105,6 +105,12 @@ onetest "testfiles/bad13"
 onetest "testfiles/bad14"
 onetest "testfiles/double_piece"
 
+# Some puzzles
+onetest "testfiles/simple1"
+onetest "testfiles/simple2"
+onetest "testfiles/simple3"
+onetest "testfiles/hard1"
+
 # Placement order
 onetest "testfiles/place_order1"
 onetest "testfiles/place_order2"
