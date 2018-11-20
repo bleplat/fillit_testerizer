@@ -93,6 +93,8 @@ onetest "testfiles/error_nonl"
 
 # Trap files
 onetest "testfiles/obvious2_nonl"
+onetest "testfiles/obvious2_inline"
+onetest "testfiles/double_piece"
 
 # Obvious tests
 onetest "testfiles/obvious1"
