@@ -6,7 +6,7 @@
 /*   By: bleplat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 18:47:14 by bleplat           #+#    #+#             */
-/*   Updated: 2018/11/20 18:54:47 by bleplat          ###   ########.fr       */
+/*   Updated: 2018/11/21 13:55:09 by bleplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,18 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-int main(int argc, char **argv)
+void	ft_putcolor(char c)
+{
+	int rnd;
+
+	rnd = c % (7 + 7);
+	if (rnd <= 7)
+		printf("\e[3%cm%c", '1' + (rnd % 7), c);
+	else
+		printf("\e[9%cm%c", '1' + ((rnd - 7) % 7), c);
+}
+
+int		main(int argc, char **argv)
 {
 	int		fd;
 	char	buff;
@@ -28,7 +39,7 @@ int main(int argc, char **argv)
 	
 	while ((read(fd, &buff, 1)) > 0)
 	{
-		printf("\e[3%cm%c", '0' + (buff % 8), buff);
+		ft_putcolor(buff);
 	}
 	printf("\e[0m");
 }
