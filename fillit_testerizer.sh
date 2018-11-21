@@ -28,26 +28,57 @@ else
 fi
 
 printf $color_def
-printf "fillit\e[34mt\e[35me\e[36ms\e[37mt\e[35m\e[31me\e[32mr\e[33mi\e[34mz\e[35me\e[36mr\e[35m\n\n"
+printf "\e[1mfillit_\e[34mt\e[35me\e[36ms\e[37mt\e[35m\e[31me\e[32mr\e[33mi\e[34mz\e[35me\e[36mr\e[35m\n\n"
 
 printf "" > $diffttl
+
+timeout() {
+	time=$1
+	command="/bin/sh -c \"$2\""
+	expect -c "set echo \"-noechoi\"; set timeout $time; spawn -noecho $command; expect timeout { exit 1 } eof { exit 0 }"
+	if [ $? = 1 ] ; then
+		return 1
+	else
+		return 0
+	fi
+}
+
+begintests() { # $1 Title
+	printf $color_def
+	printf "$1\n"
+}
+
+endtests() {
+	printf $color_def
+	printf "\n"
+}
 
 onediff() { # expected, your, title
 	if [ "`diff $1 $2`" = "" ]
 	then
 		printf $color_ok
-		printf "[ok]"
+		printf "\e[25m✓"
 	else
 		printf $color_ko
-		printf "[fail]"
+		printf "\e[5m✖"
 		printf $color_det
-		diff $1 $2 > "tmp_diff"
+		diff $1 $2 &> "tmp_diff"
 		echo "Failed test with $3" >> $diffttl
 		cat "tmp_diff" >> $diffttl
 	fi
 }
 
 onetest() { # $1 -> file_name
+	#printf "testing $1...\n"
+	timeout 10 "$execmd $1 &> $your"
+	exetime="total:\t0.001"
+	onediff "$1.expected" $your "TEST: $1"
+	printf "\t(⏱  "
+	printf $exetime
+	printf ")\n"
+}
+
+singletest() { # $1 -> file_name
 	printf $color_def
 	printf "testing $1...\n"
 	$execmd $1 &> $your
@@ -81,14 +112,17 @@ testleaks() {
 #########################################
 
 # Obvious tests
+begintests "Testing obvious files"
 onetest "testfiles/obvious1"
 onetest "testfiles/obvious2"
 onetest "testfiles/obvious3"
 onetest "testfiles/obvious4"
 onetest "testfiles/obvious5"
 onetest "testfiles/obvious6"
+endtests
 
 # Obvious bad file
+begintests "Testing obvious bad input"
 onetest "testfiles/bad1"
 onetest "testfiles/bad2"
 onetest "testfiles/bad3"
@@ -103,27 +137,39 @@ onetest "testfiles/bad11"
 onetest "testfiles/bad12"
 onetest "testfiles/bad13"
 onetest "testfiles/bad14"
+onetest "testfiles/bad15"
+onetest "testfiles/bad16"
+onetest "testfiles/bad17"
+onetest "testfiles/bad18"
 onetest "testfiles/double_piece"
+endtests
+
+# Placement order
+begintests "Testing placement order"
+onetest "testfiles/place_order1"
+onetest "testfiles/place_order2"
+onetest "testfiles/place_order3"
+onetest "testfiles/place_order4"
+endtests
 
 # Some puzzles
+begintests "Testing with some puzzles"
 onetest "testfiles/simple1"
 onetest "testfiles/simple2"
 onetest "testfiles/simple3"
 onetest "testfiles/simple4"
 onetest "testfiles/hard1"
-
-# Placement order
-onetest "testfiles/place_order1"
-onetest "testfiles/place_order2"
-onetest "testfiles/place_order3"
-onetest "testfiles/place_order4"
+endtests
 
 # Subject sample tests
+begintests "Testing subject samples"
 onetest "testfiles/sample1"
 onetest "testfiles/sample2"
 onetest "testfiles/sample3"
+endtests
 
 # Special bad files
+begintests "Testing 'special cases' of bad files"
 onetest "testfiles/error"
 onetest "testfiles/error_nonl"
 onetest "testfiles/obvious2_nonl"
@@ -133,6 +179,11 @@ onetest "testfiles/empty"
 onetest "testfiles/nl"
 onetest "testfiles/dot_nonl"
 onetest "testfiles/big_bad"
+endtests
+
+
+
+
 
 printf $color_def
 printf "ALL TESTS DONE!\n"
