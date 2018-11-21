@@ -32,6 +32,11 @@ printf "\e[1mfillit_\e[34mt\e[35me\e[36ms\e[37mt\e[35m\e[31me\e[32mr\e[33mi\e[34
 
 printf "" > $diffttl
 
+getms()
+{
+	return $(ruby -e 'puts (Time.now.to_f * 1000).to_i')
+}
+
 timeout() {
 	time=$1
 	command="/bin/sh -c \"$2\""
@@ -70,12 +75,9 @@ onediff() { # expected, your, title
 
 onetest() { # $1 -> file_name
 	#printf "testing $1...\n"
-	timeout 10 "$execmd $1 &> $your"
-	exetime="total:\t0.001"
+	exetime=$(/usr/bin/time echo $($execmd $1 &> $your) 2>&1 | sed -E "/^$/d" | sed -E "s/^ *//g" | sed -E "s/ .*\$//g")
 	onediff "$1.expected" $your "TEST: $1"
-	printf "\t(⏱  "
-	printf $exetime
-	printf ")\n"
+	printf "\t(⏳ $exetime)\n"
 }
 
 singletest() { # $1 -> file_name
