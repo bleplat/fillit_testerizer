@@ -109,6 +109,7 @@ onetest "testfiles/double_piece"
 onetest "testfiles/simple1"
 onetest "testfiles/simple2"
 onetest "testfiles/simple3"
+onetest "testfiles/simple4"
 onetest "testfiles/hard1"
 
 # Placement order
