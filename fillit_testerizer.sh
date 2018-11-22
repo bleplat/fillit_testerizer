@@ -11,10 +11,13 @@ expect=tmp_expected_results
 your=tmp_your_result
 diffttl=test_results
 
+
 color_def="\e[36m"
 color_det="\e[33m"
 color_ok="\e[32m"
 color_ko="\e[31m"
+color_ok2="\e[92m"
+color_ko2="\e[91m"
 
 if [ $1 = "run" ]
 then
@@ -28,13 +31,19 @@ else
 fi
 
 printf $color_def
-printf "\e[1mfillit_\e[34mt\e[35me\e[36ms\e[37mt\e[35m\e[31me\e[32mr\e[33mi\e[34mz\e[35me\e[36mr\e[35m\n\n"
+printf "\e[1mfillit_\e[34mt\e[35me\e[36ms\e[37mt\e[35m\e[31me\e[32mr\e[33mi\e[34mz\e[35me\e[36mr\e[35m\n\n\e[0m"
 
 printf "" > $diffttl
 
-getms()
-{
-	return $(ruby -e 'puts (Time.now.to_f * 1000).to_i')
+okttl=0
+kottl=0
+
+gotok() {
+	okttl=`expr $okttl + 1`
+}
+
+gotko() {
+	kottl=`expr $kottl + 1`
 }
 
 timeout() {
@@ -62,22 +71,25 @@ onediff() { # expected, your, title
 	if [ "`diff $1 $2`" = "" ]
 	then
 		printf $color_ok
-		printf "\e[25m✓"
+		printf " ✓ "
+		printf $color_ok2
+		gotok
 	else
 		printf $color_ko
-		printf "\e[5m✖"
-		printf $color_det
+		printf " \e[5m✖\e[25m "
 		diff $1 $2 &> "tmp_diff"
 		echo "Failed test with $3" >> $diffttl
 		cat "tmp_diff" >> $diffttl
+		printf $color_ko2
+		gotko
 	fi
 }
 
 onetest() { # $1 -> file_name
-	#printf "testing $1...\n"
 	exetime=$(/usr/bin/time echo $($execmd $1 &> $your) 2>&1 | sed -E "/^$/d" | sed -E "s/^ *//g" | sed -E "s/ .*\$//g")
+	timedout=$?
 	onediff "$1.expected" $your "TEST: $1"
-	printf "\t(⏳ $exetime)\n"
+	printf " ⏳ $exetime \t($1)\n"
 }
 
 singletest() { # $1 -> file_name
@@ -174,7 +186,6 @@ endtests
 begintests "Testing 'special cases' of bad files"
 onetest "testfiles/error"
 onetest "testfiles/error_nonl"
-onetest "testfiles/obvious2_nonl"
 onetest "testfiles/obvious2_inline"
 onetest "testfiles/lorem_ipsum"
 onetest "testfiles/empty"
@@ -183,11 +194,33 @@ onetest "testfiles/dot_nonl"
 onetest "testfiles/big_bad"
 endtests
 
+# Very bad cases
+begintests "Testing d**k cases"
+onetest "testfiles/unexisting"
+onetest "testfiles/obvious2_nonl"
+chmod 000 "testfiles/protected"
+onetest "testfiles/protected"
+endtests
 
-
-
+# Bad arguments
+begintests "Testing bad arguments"
+cat "testfiles/error.expected" > $expect
+$execmd &> $your
+onediff $expect $your "Testing with 0 args"
+$execmd "###" "555" &> $your
+onediff $expect $your "Testing with 2 bad args"
+$execmd "testfiles/obvious1" "testfiles/obvious2" &> $your
+onediff $expect $your "Testing with 2 good args"
+$execmd "testfiles/" &> $your
+onediff $expect $your "Testing with folder"
+$execmd "" &> $your
+onediff $expect $your "Testing with empty arg"
+printf "\n"
+endtests
 
 printf $color_def
 printf "ALL TESTS DONE!\n"
+printf "$color_ok\tSUCCESS: $okttl / `expr $okttl + $kottl`\n"
+printf "$color_ko\tFAILS: $kottl / `expr $okttl + $kottl`\n"
 printf "\e[33mWARNING! This version is not finished and may contains bugs\nTake caution with false positives\n"
 rm tmp_*
