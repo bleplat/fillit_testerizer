@@ -11,7 +11,6 @@ expect=tmp_expected_results
 your=tmp_your_result
 diffttl=test_results
 
-
 color_def="\e[36m"
 color_det="\e[33m"
 color_ok="\e[32m"
@@ -206,18 +205,23 @@ endtests
 # Bad arguments
 begintests "Testing bad arguments"
 cat "testfiles/error.expected" > $expect
-$execmd &> $your
-onediff $expect $your "Testing with 0 args"
-$execmd "###" "555" &> $your
-onediff $expect $your "Testing with 2 bad args"
-$execmd "testfiles/obvious1" "testfiles/obvious2" &> $your
-onediff $expect $your "Testing with 2 good args"
+#$execmd &> $your
+#onediff $expect $your "Testing with 0 args"
+#$execmd "###" "555" &> $your
+#onediff $expect $your "Testing with 2 bad args"
+#$execmd "testfiles/obvious1" "testfiles/obvious2" &> $your
+#onediff $expect $your "Testing with 2 good args"
 $execmd "testfiles/" &> $your
 onediff $expect $your "Testing with folder"
 $execmd "" &> $your
 onediff $expect $your "Testing with empty arg"
+$execmd &> tmp_your1
+$execmd "testfiles/simple1" "555" &> tmp_your2
+onediff tmp_your1 tmp_your2 "Testing usage display"
 printf "\n"
 endtests
+
+
 
 printf $color_def
 printf "ALL TESTS DONE!\n"
