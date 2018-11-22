@@ -1,0 +1,15 @@
+Failed test with Testing with 0 args
+0a1
+> ../fillit_testerizer.sh: line 208: ./copyed_project/fillit: No such file or directory
+Failed test with Testing with 2 bad args
+0a1
+> ../fillit_testerizer.sh: line 210: ./copyed_project/fillit: No such file or directory
+Failed test with Testing with 2 good args
+0a1
+> ../fillit_testerizer.sh: line 212: ./copyed_project/fillit: No such file or directory
+Failed test with Testing with folder
+0a1
+> ../fillit_testerizer.sh: line 214: ./copyed_project/fillit: No such file or directory
+Failed test with Testing with empty arg
+0a1
+> ../fillit_testerizer.sh: line 216: ./copyed_project/fillit: No such file or directory
