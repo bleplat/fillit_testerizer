@@ -200,6 +200,7 @@ onetest "testfiles/unexisting"
 onetest "testfiles/obvious2_nonl"
 chmod 000 "testfiles/protected"
 onetest "testfiles/protected"
+chmod 775 "testfiles/protected"
 endtests
 
 # Bad arguments

@@ -6,12 +6,12 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/20 18:57:12 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/22 13:36:42 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Change the above path to the path of your project, without an ending '/':
-TESTED_DIR = ../try0
+TESTED_DIR = ../bad
 
 
 NAME = tests
@@ -34,9 +34,6 @@ all: import $(NAME)
 ###    Tested Project Import    ###
 ###################################
 
-run:
-	./runtests.sh run
-
 norminette:
 	@printf "\e[36mrunning norminette...\e[31m\n"
 	@cd $(TESTED_DIR) && norminette *.h | sed -e "/^Norme: /d"
@@ -44,11 +41,10 @@ norminette:
 
 import:
 	@printf "\e[35mcopying files..\n"
-	@mkdir -p $(CP_DIR)
-	cp -rf $(TESTED_DIR)/* $(CP_DIR)/
+	cp -rf $(TESTED_DIR) $(CP_DIR)
 	cd $(CP_DIR) && make fclean
 	cd $(CP_DIR) && make
-	#ised -E "s/^# define BUFF_SIZE .*/\/\*# define BUFF_SIZE 0\*\//g" $(CP_DIR)/get_next_line.h > swp && mv swp $(CP_DIR)/get_next_line.h
+	@#ised -E "s/^# define BUFF_SIZE .*/\/\*# define BUFF_SIZE 0\*\//g" $(CP_DIR)/get_next_line.h > swp && mv swp $(CP_DIR)/get_next_line.h
 
 $(GNL_DIR)/libft.a:
 	cd $(GNL_DIR)/libft && make 1> /dev/null
@@ -70,6 +66,7 @@ $(NAME)_leaks: main_leaks.c
 	gcc $(CFLAGS) -I $(INCLUDES) -o $@ $^ $(LDFLAGS)
 
 
+
 ###########################
 ###    Special Rules    ###
 ###########################
@@ -78,7 +75,7 @@ $(NAME)_leaks: main_leaks.c
 	@printf "\e33mnothing in rule to make $@!\n"
 
 $(NAME): $(TESTS_EXE)
-	@printf "\e[34m$(NAME) seems done\n"
+	@printf "\e[34mmake finished\n"
 
 clean:
 	@printf "\e[35mcleaning...\n"
