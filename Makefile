@@ -6,7 +6,7 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/22 13:36:42 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/23 12:06:06 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,9 @@ CFLAGS = -Wall -Wextra
 LDFLAGS = -L libft -lft
 
 all: import $(NAME)
+	mkdir -p ok_pieces
+	./genpieces 1> /dev/null
+	chmod 666 ok_pieces/*
 	@printf "\e[36mReady to run 'sh fillit_testerizer.sh'...\e[31m\n\n"
 
 
@@ -54,16 +57,22 @@ $(GNL_DIR)/libft.a:
 ###############################
 ###    TESTS EXECUTABLES    ###
 ###############################
-TESTS_EXE = $(NAME)_colors
+TESTS_EXE = $(NAME)_colors gettime genpieces
 
 main.o: main.c
 	gcc $(CFLAGS) -o $@ -c main.c
+
+genpieces: genpieces.c
+	gcc -o $@ $<
 
 $(NAME)_colors: colorc.c
 	gcc $(CFLAGS) -o $@ $^
 
 $(NAME)_leaks: main_leaks.c
 	gcc $(CFLAGS) -I $(INCLUDES) -o $@ $^ $(LDFLAGS)
+
+gettime: gettime.c
+	gcc $(CFLAGS) -o3 -o $@ $<
 
 
 
@@ -87,5 +96,7 @@ fclean: clean
 	rm -rf $(CP_DIR) 2> /dev/null
 	rm -rf $(NAME)_*
 	rm -f test_results
+	rm -f gettime
+	rm -f genpieces
 
 re: fclean all

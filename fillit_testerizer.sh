@@ -85,10 +85,12 @@ onediff() { # expected, your, title
 }
 
 onetest() { # $1 -> file_name
-	exetime=$(/usr/bin/time echo $($execmd $1 &> $your) 2>&1 | sed -E "/^$/d" | sed -E "s/^ *//g" | sed -E "s/ .*\$//g")
-	timedout=$?
+	#exetime=$(/usr/bin/time echo $($execmd $1 &> $your) 2>&1 | sed -E "/^$/d" | sed -E "s/^ *//g" | sed -E "s/ .*\$//g")
+	timestart=$(./gettime)
+	$execmd $1 &> $your
+	timeend=$(./gettime)
 	onediff "$1.expected" $your "TEST: $1"
-	printf " ⏳ $exetime \t($1)\n"
+	printf " ⏳ `echo \"scale = 1; $timeend - $timestart\" | bc -l` \t($1)\n"
 }
 
 singletest() { # $1 -> file_name
@@ -200,6 +202,11 @@ onetest "testfiles/obvious2_nonl"
 chmod 000 "testfiles/protected"
 onetest "testfiles/protected"
 chmod 775 "testfiles/protected"
+endtests
+
+# All possible pieces
+begintests "Testing with ALL possible pieces:"
+
 endtests
 
 # Bad arguments
