@@ -6,7 +6,7 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/23 12:06:06 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/23 12:07:49 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,5 +98,6 @@ fclean: clean
 	rm -f test_results
 	rm -f gettime
 	rm -f genpieces
+	rm -rf ok_pieces
 
 re: fclean all
