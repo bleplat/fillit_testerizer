@@ -6,7 +6,7 @@
 /*   By: bleplat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 10:18:04 by bleplat           #+#    #+#             */
-/*   Updated: 2018/11/23 11:49:12 by bleplat          ###   ########.fr       */
+/*   Updated: 2018/11/23 13:31:53 by bleplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,43 @@ int				get_piece(int index)
 		return (pieces[index]);
 	else
 		return (0);
+}
+
+int				is_on(int piece, int x, int y)
+{
+	return (piece & ((1 << x) << y * 4));
+}
+
+void			put_expected(int piece, char *piece_name)
+{
+	int		fd;
+	int		size;
+	int		x;
+	int		y;
+
+	size = 0;
+	while (piece & (0x1111 << size))
+		size++;
+	while (piece & (0x000F << (size * 4)))
+		size++;
+	printf("generating %s...\n", piece_name);
+	fd = open(piece_name, O_WRONLY | O_CREAT);
+	y = 0;
+	while (y < size)
+	{
+		x = 0;
+		while (x < size)
+		{
+			if (is_on(piece, x, y))
+				write(fd, "A", 1);
+			else
+				write(fd, ".", 1);
+			x++;
+		}
+		write(fd, "\n", 1);
+		y++;
+	}
+	close(fd);
 }
 
 void			put_piece(int piece, char *piece_name)
@@ -115,6 +152,9 @@ void			all_piece_configs(int opiece)
 			currpiece = (opiece << x) << (y * 4);
 			name = create_piece_name("ok_pieces/piece_", currpiece, "");
 			put_piece(currpiece, name);
+			free(name);
+			name = create_piece_name("ok_pieces/piece_", currpiece, ".expected");
+			put_expected(opiece, name);
 			free(name);
 			x++;
 		}
