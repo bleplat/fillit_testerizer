@@ -21,7 +21,7 @@ color_ko2="\e[91m"
 if [ $1 = "run" ]
 then
 	printf $color_def
-	printf "Running tests without running make!"
+	printf "Running tests without running make!\n"
 else
 	printf $color_def
 	printf "Making files and running tests...\n"
@@ -205,8 +205,36 @@ chmod 775 "testfiles/protected"
 endtests
 
 # All possible pieces
+ireturnline=0
 begintests "Testing with ALL possible pieces:"
+for file in ./ok_pieces/*
+do
+	if [[ $file =~ ^.*\.expected ]]
+	then
+		if [ $ireturnline -eq 8 ]
+		then
+			printf "\n"
+			ireturnline=0
+		fi
+		$execmd $(echo $file | sed "s/\.expected//g") &> $your
+		onediff $file $your $(echo $file | sed "s/\.expected//g")
+		ireturnline=`expr $ireturnline + 1`
+	fi
+done
+endtests
 
+# Custom tests
+begintests "Other custom tests:"
+for file in ./customtests/*
+do
+	if [[ $file =~ ^.*\.expected ]]
+	then
+		printf "$file: "
+		$execmd $(echo $file | sed "s/\.expected//g") &> $your
+		onediff $file $your $file
+		printf "\n"
+	fi
+done
 endtests
 
 # Bad arguments
