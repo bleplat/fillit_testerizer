@@ -196,7 +196,7 @@ onetest "testfiles/big_bad"
 endtests
 
 # Very bad cases
-begintests "Testing d**k cases"
+begintests "Testing additional error cases"
 onetest "testfiles/unexisting"
 onetest "testfiles/obvious2_nonl"
 chmod 000 "testfiles/protected"
@@ -224,7 +224,7 @@ done
 endtests
 
 # Custom tests
-begintests "Other custom tests:"
+begintests "Other custom tests"
 for file in ./customtests/*
 do
 	if [[ $file =~ ^.*\.expected ]]
