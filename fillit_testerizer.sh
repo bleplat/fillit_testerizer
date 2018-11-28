@@ -197,6 +197,7 @@ endtests
 
 # Very bad cases
 begintests "Testing additional error cases"
+onetest "testfiles/middle_broken"
 onetest "testfiles/unexisting"
 onetest "testfiles/obvious2_nonl"
 chmod 000 "testfiles/protected"
@@ -229,10 +230,11 @@ for file in ./customtests/*
 do
 	if [[ $file =~ ^.*\.expected ]]
 	then
-		printf "$file: "
-		$execmd $(echo $file | sed "s/\.expected//g") &> $your
-		onediff $file $your $file
-		printf "\n"
+		#printf "$file: "
+		#$execmd $(echo $file | sed "s/\.expected//g") &> $your
+		onetest $(echo $file | sed "s/\.expected//g")
+		#onediff $file $your $file
+		#printf "\n"
 	fi
 done
 endtests
