@@ -138,6 +138,7 @@ endtests
 
 # Obvious bad file
 begintests "Testing obvious bad input"
+onetest "testfiles/bad0"
 onetest "testfiles/bad1"
 onetest "testfiles/bad2"
 onetest "testfiles/bad3"
@@ -156,6 +157,7 @@ onetest "testfiles/bad15"
 onetest "testfiles/bad16"
 onetest "testfiles/bad17"
 onetest "testfiles/bad18"
+onetest "testfiles/bad19"
 onetest "testfiles/double_piece"
 endtests
 
