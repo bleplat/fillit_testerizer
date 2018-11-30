@@ -3,3 +3,4 @@ tmp/
 tmp_*
 tests_
 ok_pieces
+customtests/
