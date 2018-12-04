@@ -266,5 +266,5 @@ printf $color_def
 printf "ALL TESTS DONE!\n"
 printf "$color_ok\tSUCCESS: $okttl / `expr $okttl + $kottl`\n"
 printf "$color_ko\tFAILS: $kottl / `expr $okttl + $kottl`\n"
-printf "\e[33mWARNING! This version is not finished and may contains bugs\nTake caution with false positives\n"
+printf "\e[33mWARNING! Displayed time may be inaccurate! \nWARNING! This version is not finished and may contains bugs\nTake caution with false positives\n"
 rm tmp_*
