@@ -158,6 +158,7 @@ onetest "testfiles/bad16"
 onetest "testfiles/bad17"
 onetest "testfiles/bad18"
 onetest "testfiles/bad19"
+onetest "testfiles/bad20"
 onetest "testfiles/double_piece"
 endtests
 
